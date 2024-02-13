@@ -11,12 +11,32 @@ const submit_task=()=>{
       status:'To-Do'
     })
   }
-  console.log(todos);
+
+  // if(editing.value){
+  //   console.log(todos);
+  //   todos.value[index].name=task.value
+  //   editing.value=null
+  // }
+
   task.value=''
+
 }
+
+function deleteTask(index) {
+  const temp=todos.value.splice(index,1)
+  console.log(temp);
+} 
+const editing=ref(null)
+function editTask(index) {
+  editing.value=!null
+  task.value=todos.value[index].name
+}
+
 </script>
 
 <template>
+  <div class="main-container">
+
   <div class="container">
   <h1>To-Do List Application</h1>
     <div class="container_input">
@@ -35,17 +55,31 @@ const submit_task=()=>{
         >
           <span>{{order.name}}</span>
           <span>{{order.status}}</span>
+          <span @click="editTask(index)" class="editOption">
+            Edit
+          </span>
+          <span @click="deleteTask(index)" class="deleteOption">
+            Delete
+          </span>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 </template>
 
 <style scoped lang="scss">
 *{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  
 }
+body{
+  margin: 0;
+}
+// .main-container{
+//   background-color: rgba(14, 87, 14, 0.422);
+//   height: 90vh;
+// }
 .container{
   background-color: rgba(14, 87, 14, 0.422);
   max-width: 50vw;
@@ -66,6 +100,7 @@ const submit_task=()=>{
       background-color: greenyellow;
       color: black;
       border-radius: 1rem;
+      outline: none;
     }
     button{
       padding-left: 1rem;
@@ -92,8 +127,8 @@ const submit_task=()=>{
       // align-items: ;
       .heading{
         display: grid;
-        grid-template-columns: 1fr 0.5fr;
-        // gap: 2rem;
+        grid-template-columns: 1fr 0.5fr 0.2fr 0.2fr;
+        gap: .2rem;
         span{
           font-weight: 900;
           text-align: center;
@@ -103,11 +138,30 @@ const submit_task=()=>{
       }
       .tasks{
         display: grid;
-        grid-template-columns: 1fr 0.5fr;
-        // gap: 2rem;
+        grid-template-columns: 1fr 0.5fr 0.2fr 0.2fr;
+        gap: .2rem;
         span{
           padding: .5rem;
           text-align: center;
+          margin-top: 5px;
+        }
+        .deleteOption{
+          color: rgba(255, 0, 0, 0.745);
+          background-color: rgba(100, 56, 56, 0.517);
+          border-radius: 1rem;
+          cursor: pointer;
+          // display: flex;
+          // justify-content: center;
+          // align-items: center;
+        }
+        .editOption{
+          color: rgba(0, 255, 98, 0.745);
+          background-color: rgba(56, 60, 100, 0.517);
+          border-radius: 1rem;
+          cursor: pointer;
+          // display: flex;
+          // justify-content: center;
+          // align-items: center;
         }
       }
     }
