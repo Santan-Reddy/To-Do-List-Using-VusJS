@@ -5,30 +5,28 @@ const task=ref('')
 const todos=ref([])
 
 const submit_task=()=>{
-  if(task.value.length!==0){
+  if(task.value.length!==0 && editing.value==null){
     todos.value.push({
       name:task.value,
       status:'To-Do'
     })
   }
 
-  // if(editing.value){
-  //   console.log(todos);
-  //   todos.value[index].name=task.value
-  //   editing.value=null
-  // }
+  if(editing.value!=null){
+    todos.value[editing.value].name=task.value
+    editing.value=null
+  }
 
   task.value=''
 
 }
 
 function deleteTask(index) {
-  const temp=todos.value.splice(index,1)
-  console.log(temp);
+  todos.value.splice(index,1)
 } 
 const editing=ref(null)
 function editTask(index) {
-  editing.value=!null
+  editing.value=index
   task.value=todos.value[index].name
 }
 
